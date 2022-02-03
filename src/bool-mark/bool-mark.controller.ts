@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { Bookmark } from './book.model';
 import { BoolMarkService } from './bool-mark.service';
 import { createBookMarkDto } from './Dto/createBookMarkDto';
@@ -9,34 +9,49 @@ export class BoolMarkController {
   constructor(private service: BoolMarkService) {}
 
   @Get()
-  find(@Query() getBookmarkDto:getBookmarkDto): Bookmark[] {
+ async find(@Query() getBookmarkDto:getBookmarkDto): Promise<Bookmark[]> {
 
     if(Object.keys(getBookmarkDto).length){
-      return this.service.find(getBookmarkDto);
+      const find = await this.service.find(getBookmarkDto)
+      return find
     }
-  
-    return this.service.findAll();
+  const findAll = await this.service.findAll()
+    return findAll;
   }
 
   @Get('/:id')
-  findById(@Param('id') id:string):Bookmark{
-    return this.service.findByID(id)
+ async findById(@Param('id') id:string):Promise<Bookmark>{
+    // return this.service.findByID(id)
+
+    const findByID = await this.service.findByID(id);
+
+    return findByID;
 
   }
 
   @Post()
-  creatBook(@Body() createBookMarkDto: createBookMarkDto):Bookmark {
-    return this.service.createBook(createBookMarkDto);
+ async creatBook(@Res()res,@Body() createBookMarkDto: createBookMarkDto):Promise<Bookmark> {
+
+    const createBooks = await this.service.createBook(createBookMarkDto);
+
+    return res.status(HttpStatus.OK).json({
+      meassage:"Bookmark has been created successfully",
+      createBooks
+    })
+
+    // return this.service.createBook(createBookMarkDto);
   }
 
   @Delete('/:id')
-  deleteBookmark(@Param('id') id:string):void{
-    return this.service.deleteBookmark(id)
+ async deleteBookmark(@Param('id') id:string):Promise<void>{
+   const deleteBookmark = await this.service.deleteBookmark(id);
+    return deleteBookmark;
   }
 
   @Patch('/:id/description')
-  updateBookmarkDescription(@Param('id') id:string , @Body('description') description:string):Bookmark{
-    return this.service.updateBookmarkDescription(id,description)
+ async updateBookmarkDescription(@Param('id') id:string , @Body('description') createBookMarkDto:createBookMarkDto):Promise<Bookmark>{
+    const updateBookmarkDescription = await this.service.updateBookmarkDescription(id,createBookMarkDto)
+    return updateBookmarkDescription;
   }
 
 }
