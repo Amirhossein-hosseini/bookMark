@@ -33,7 +33,6 @@ find(getBookmarkDto:getBookmarkDto):Bookmark[] {
   }
   
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   createBook(createBookMarkDto): Bookmark {
     const { url, description } = createBookMarkDto;
     const bookmarks: Bookmark = {

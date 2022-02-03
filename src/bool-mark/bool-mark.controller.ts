@@ -21,10 +21,11 @@ export class BoolMarkController {
   @Get('/:id')
   findById(@Param('id') id:string):Bookmark{
     return this.service.findByID(id)
+
   }
 
   @Post()
-  creatBook(@Body() createBookMarkDto: createBookMarkDto): Bookmark {
+  creatBook(@Body() createBookMarkDto: createBookMarkDto):Bookmark {
     return this.service.createBook(createBookMarkDto);
   }
 
