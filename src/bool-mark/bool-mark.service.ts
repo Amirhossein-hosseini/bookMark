@@ -65,7 +65,7 @@ const bookMarkCreate = await new this.bookModule(createBookMarkDto)
   //    return Bookmark.id !== id;
   //  })
 
-  const deleteBookmark = await this.bookModule.findByIdAndRemove(id);
+  let deleteBookmark = await this.bookModule.findByIdAndRemove(id);
 
   return deleteBookmark;
 

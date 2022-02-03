@@ -43,9 +43,20 @@ export class BoolMarkController {
   }
 
   @Delete('/:id')
- async deleteBookmark(@Param('id') id:string):Promise<void>{
-   const deleteBookmark = await this.service.deleteBookmark(id);
-    return deleteBookmark;
+ async deleteBookmark(@Res() res, @Param('id') id:string):Promise<void>{
+  try {
+    const deleteBookmark = await this.service.deleteBookmark(id);
+    return res.status(HttpStatus.OK).json({
+      message:"Bookmark has brrn deleted successfully",
+      deleteBookmark
+
+    })
+  } catch (error) {
+    return res.status(HttpStatus.NOT_FOUND).json({
+      message:"Bookmark can not deleted successfully",
+      error:` eroor is  ${error}`
+    })
+  }
   }
 
   @Patch('/:id/description')
