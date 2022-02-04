@@ -1,13 +1,30 @@
-FROM node:16.13.2
+FROM node:16.13.2 AS development
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install glob rimraf
+
+RUN npm install --only=development
 
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
 
-CMD npm run seed & npm run start
+FROM node:16.13.2 as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY . .
+
+COPY --from=development /usr/src/app/dist ./dist
+
+CMD ["node", "dist/main"]

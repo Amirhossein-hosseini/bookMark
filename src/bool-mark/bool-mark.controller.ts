@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
+import { result } from 'lodash';
 import { Bookmark } from './book.model';
 import { BoolMarkService } from './bool-mark.service';
 import { createBookMarkDto } from './Dto/createBookMarkDto';
@@ -11,21 +12,23 @@ export class BoolMarkController {
   @Get()
  async find(@Query() getBookmarkDto:getBookmarkDto): Promise<Bookmark[]> {
 
+ 
+
     if(Object.keys(getBookmarkDto).length){
-      const find = await this.service.find(getBookmarkDto)
-      return find
+      return await this.service.find(getBookmarkDto)
     }
-  const findAll = await this.service.findAll()
-    return findAll;
+    return await this.service.findAll()
+
+
+
+
   }
 
   @Get('/:id')
  async findById(@Param('id') id:string):Promise<Bookmark>{
-    // return this.service.findByID(id)
+   
 
-    const findByID = await this.service.findByID(id);
-
-    return findByID;
+    return await this.service.findByID(id)
 
   }
 
@@ -35,34 +38,37 @@ export class BoolMarkController {
     const createBooks = await this.service.createBook(createBookMarkDto);
 
     return res.status(HttpStatus.OK).json({
-      meassage:"Bookmark has been created successfully",
+      message:"Post has been created successfull",
       createBooks
     })
 
-    // return this.service.createBook(createBookMarkDto);
   }
 
   @Delete('/:id')
  async deleteBookmark(@Res() res, @Param('id') id:string):Promise<void>{
-  try {
+
     const deleteBookmark = await this.service.deleteBookmark(id);
     return res.status(HttpStatus.OK).json({
       message:"Bookmark has brrn deleted successfully",
       deleteBookmark
 
     })
-  } catch (error) {
-    return res.status(HttpStatus.NOT_FOUND).json({
-      message:"Bookmark can not deleted successfully",
-      error:` eroor is  ${error}`
-    })
-  }
+
+
+ 
   }
 
-  @Patch('/:id/description')
- async updateBookmarkDescription(@Param('id') id:string , @Body('description') createBookMarkDto:createBookMarkDto):Promise<Bookmark>{
-    const updateBookmarkDescription = await this.service.updateBookmarkDescription(id,createBookMarkDto)
-    return updateBookmarkDescription;
+  @Patch('/:id')
+ async updateBookmarkDescription(@Res()res,@Param('id') id:string , @Body() createBookMarkDto:createBookMarkDto):Promise<Bookmark>{
+     const updateBookmarkDescription = await this.service.updateBookmarkDescription(id,createBookMarkDto)
+    // return updateBookmarkDescription;
+
+    // return await this.service.updateBookmarkDescription(id,createBookMarkDto)
+
+    return res.status(HttpStatus.OK).json({
+     message:"sucessfull for updateBookmarkDescription",
+   updateBookmarkDescription
+    })
   }
 
 }
