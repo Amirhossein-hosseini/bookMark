@@ -1,8 +1,11 @@
 <h1 align="center">nestjs-bookmark 👋</h1>
 
 ## Postman
-<image src="src/bool-mark/image/Postman 2_4_2022 2_13_54 PM.png">
-
+<img
+  src="/src/image/.jpg"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
 > The bookmark API has been implemented using Nest.js, mongose and Docker Compose.
 
 ## Usage
