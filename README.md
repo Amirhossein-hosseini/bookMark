@@ -1,7 +1,7 @@
 <h1 align="center">nestjs-bookmark 👋</h1>
 
 
-> The Asynchronous API has been implemented using Nest.js, Postgresql, MongoDB, RabbitMQ, and Docker Compose.
+> The bookmark API has been implemented using Nest.js, mongose and Docker Compose.
 
 ## Usage
 
@@ -11,9 +11,8 @@ sudo docker-compose up
 
 ## Author
 
-👤 **ggingmin**
+👤 **Amirhossein**
 
-* Website: https://www.ggingmin.com/
-* Github: [@ggingmin](https://github.com/ggingmin)
-* LinkedIn: [@ggingmin](https://linkedin.com/in/ggingmin)
+* Github: [@Amirhossein](https://github.com/Amirhossein-hosseini/)
+* LinkedIn: [@Amirhossein](https://www.linkedin.com/in/amir-hossein-hosseini-731b02207/)
 
