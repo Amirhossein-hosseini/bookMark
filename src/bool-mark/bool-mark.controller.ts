@@ -59,7 +59,7 @@ export class BoolMarkController {
   }
 
   @Patch('/:id')
- async updateBookmarkDescription(@Res()res,@Param('id') id:string , @Body() createBookMarkDto:createBookMarkDto):Promise<Bookmark>{
+ async updateBookmark(@Res()res,@Param('id') id:string , @Body() createBookMarkDto:createBookMarkDto):Promise<Bookmark>{
      const updateBookmarkDescription = await this.service.updateBookmarkDescription(id,createBookMarkDto)
     // return updateBookmarkDescription;
 
