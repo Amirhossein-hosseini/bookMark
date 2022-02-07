@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-const PORT = parseInt(process.env.SERVER_PORT, 10) || 3000;
+const PORT = parseInt(process.env.MONGO_SERVER_PORT, 10) || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

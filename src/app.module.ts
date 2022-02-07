@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Mongoose } from 'mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BoolMarkModule } from './bool-mark/bool-mark.module';
+import { BoolMarkModule } from './bool-mark/book-mark.module';
 
 
 

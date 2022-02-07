@@ -1,13 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, HttpCode, HttpException, HttpStatus, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { result } from 'lodash';
 import { Bookmark } from './book.model';
-import { BoolMarkService } from './bool-mark.service';
+import { BookMarkService } from './book-mark.service';
 import { createBookMarkDto } from './Dto/createBookMarkDto';
 import { getBookmarkDto } from './Dto/get-bookmark.dto';
 
 @Controller('bookmark')
 export class BoolMarkController {
-  constructor(private service: BoolMarkService) {}
+  constructor(private service: BookMarkService) {}
 
   @Get()
  async find(@Query() getBookmarkDto:getBookmarkDto): Promise<Bookmark[]> {
@@ -23,8 +23,9 @@ export class BoolMarkController {
 
 
   }
-
   @Get('/:id')
+  @Header('custome-header-name','this is custome header')
+
  async findById(@Param('id') id:string):Promise<Bookmark>{
    
 
@@ -33,6 +34,8 @@ export class BoolMarkController {
   }
 
   @Post()
+  @Header('custome-header-name','this is custome header')
+
  async creatBook(@Res()res,@Body() createBookMarkDto: createBookMarkDto):Promise<Bookmark> {
 
     const createBooks = await this.service.createBook(createBookMarkDto);
@@ -60,14 +63,14 @@ export class BoolMarkController {
 
   @Patch('/:id')
  async updateBookmark(@Res()res,@Param('id') id:string , @Body() createBookMarkDto:createBookMarkDto):Promise<Bookmark>{
-     const updateBookmarkDescription = await this.service.updateBookmarkDescription(id,createBookMarkDto)
+     const updateBookmark = await this.service.updateBookmark(id,createBookMarkDto)
     // return updateBookmarkDescription;
 
     // return await this.service.updateBookmarkDescription(id,createBookMarkDto)
 
     return res.status(HttpStatus.OK).json({
-     message:"sucessfull for updateBookmarkDescription",
-   updateBookmarkDescription
+     message:"sucessfull for updateBookmark",
+     updateBookmark
     })
   }
 
